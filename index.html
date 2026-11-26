@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hallenzeiten 2026/2027 – FC Kaunitz e.V. 1946</title>
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #181818;
+      --surface-hover: #222222;
+      --border: #2e2e2e;
+      --yellow: #ffd000;
+      --yellow-dark: #cca700;
+      --text: #f4f4f4;
+      --text-muted: #a3a3a3;
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.14);
+      --blue: #3b82f6;
+      --blue-bg: rgba(59, 130, 246, 0.14);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 3rem;
+    }
+
+    header {
+      background: linear-gradient(180deg, #1a1a1a 0%, #0e0e0e 100%);
+      border-bottom: 2px solid var(--yellow);
+      padding: 1.25rem 1rem;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand h1 {
+      font-size: 1.4rem;
+      color: var(--yellow);
+      letter-spacing: 0.3px;
+    }
+
+    .brand p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .pin-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .pin-box input {
+      background: #0e0e0e;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      width: 110px;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      background: var(--yellow);
+      color: #000;
+      border: none;
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--yellow-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-hover);
+    }
+
+    .btn-free {
+      background: var(--green);
+      color: #000;
+    }
+
+    .btn-claim {
+      background: var(--yellow);
+      color: #000;
+    }
+
+    .btn-reset {
+      background: #333;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 240px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      border-color: var(--yellow);
+      background: #1f1d12;
+    }
+
+    .tab-btn strong {
+      display: block;
+      color: var(--yellow);
+      font-size: 1rem;
+    }
+
+    .tab-btn span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: var(--surface);
+      padding: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .filters select {
+      background: #0e0e0e;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      flex: 1;
+      min-width: 170px;
+    }
+
+    .date-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .date-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: #1c1c1c;
+      border-left: 4px solid var(--yellow);
+      border-radius: 4px;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .slot-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .slot-card.blocked {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: var(--red-bg);
+    }
+
+    .slot-card.free {
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+
+    .slot-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .slot-time {
+      font-weight: 700;
+      color: var(--yellow);
+      font-size: 0.95rem;
+    }
+
+    .slot-team {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .slot-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 0.4rem;
+    }
+
+    .badge-belegt { background: #2a2a2a; color: #d4d4d4; }
+    .badge-frei { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+    .badge-uebernommen { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+    .badge-gesperrt { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+
+    .rules-box {
+      margin-top: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem;
+    }
+
+    .rules-box h3 {
+      color: var(--yellow);
+      margin-bottom: 0.65rem;
+      font-size: 1.05rem;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+      font-size: 0.88rem;
+    }
+
+    .rule-item {
+      background: #121212;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #262626;
+    }
+
+    .rule-item strong {
+      display: block;
+      color: var(--yellow);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--yellow);
+      border-radius: 10px;
+      padding: 1.25rem;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .modal h3 {
+      color: var(--yellow);
+      margin-bottom: 0.75rem;
+    }
+
+    .modal label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.65rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .modal input, .modal select {
+      width: 100%;
+      padding: 0.55rem;
+      background: #0e0e0e;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1.15rem;
+    }
+
+    .status-banner {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container header-top">
+    <div class="brand">
+      <h1>FC Kaunitz e.V. 1946 – Hallenzeiten</h1>
+      <p>Wintersaison 2026/2027 (02.11.2026 – 27.02.2027) • Interaktiver Belegungsplan</p>
+    </div>
+    <div class="pin-box" id="pinBox">
+      <input type="password" id="pinInput" placeholder="Trainer-PIN" />
+      <button class="btn" id="pinBtn">Freischalten</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="tabs">
+    <button class="tab-btn active" data-hall="kaunitz">
+      <strong>Sporthalle Grundschule Kaunitz</strong>
+      <span>Fröbelstraße 13 • 33415 Verl-Kaunitz</span>
+    </button>
+    <button class="tab-btn" data-hall="bornholte">
+      <strong>Sporthalle Verl-Bornholte</strong>
+      <span>Bergstraße 26 • 33415 Verl-Bornholte</span>
+    </button>
+  </div>
+
+  <div class="filters">
+    <select id="filterStatus">
+      <option value="all">Alle Status anzeigen</option>
+      <option value="frei">Nur freie / abgesagte Zeiten</option>
+      <option value="uebernommen">Nur übernommene Zeiten</option>
+      <option value="belegt">Regulär belegt</option>
+    </select>
+    <select id="filterTeam">
+      <option value="all">Alle Mannschaften</option>
+    </select>
+    <select id="filterWeek">
+      <option value="upcoming">Ab heute / Aktuelle Termine</option>
+      <option value="all">Gesamte Wintersaison (Nov – Feb)</option>
+    </select>
+  </div>
+
+  <div id="planContainer">
+    <div class="status-banner">Lade Hallenzeiten aus der Datenbank...</div>
+  </div>
+
+  <section class="rules-box">
+    <h3>Wichtige Hinweise für beide Sporthallen</h3>
+    <div class="rules-grid">
+      <div class="rule-item">
+        <strong>🔑 Hallenschlüssel</strong>
+        Die Schlüssel befinden sich im Heizungsraum im Vereinsheim. Bitte nach der letzten Nutzung am Tag wieder dort ablegen.
+      </div>
+      <div class="rule-item">
+        <strong>📋 Anwesenheitsliste</strong>
+        Bitte tragt euch bei jeder Hallennutzung vor Ort in die dafür vorgesehene Liste ein.
+      </div>
+      <div class="rule-item">
+        <strong>✔ Sauberkeit</strong>
+        Halle sauber und ordentlich verlassen. Bitte hinterlasst sie so, wie ihr sie selbst vorfinden möchtet.
+      </div>
+      <div class="rule-item">
+        <strong>📢 Wichtig: Absagen</strong>
+        Sollte eine Mannschaft ihre Zeit nicht nutzen können, gebt bitte rechtzeitig hier im Plan (und in der Gruppe) Bescheid, damit andere die freie Zeit übernehmen können.
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Modal für Aktionen -->
+<div class="modal-backdrop" id="actionModal">
+  <div class="modal">
+    <h3 id="modalTitle">Termin anpassen</h3>
+    <p id="modalDesc" style="font-size: 0.9rem; color: var(--text-muted);"></p>
+
+    <div id="claimTeamWrapper">
+      <label for="modalTeamSelect">Übernehmende Mannschaft</label>
+      <select id="modalTeamSelect"></select>
+    </div>
+
+    <label for="modalTrainerName">Dein Name / Kürzel (für Rückfragen)</label>
+    <input type="text" id="modalTrainerName" placeholder="z. B. Matze (G1)" />
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="modalCancel">Abbrechen</button>
+      <button class="btn" id="modalConfirm">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getFirestore, collection, doc, onSnapshot, writeBatch, updateDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAp_go7BB4zjoY3oh23xilopkJDfrIBm2E",
+    authDomain: "fc-kaunitz-hallenzeiten.firebaseapp.com",
+    projectId: "fc-kaunitz-hallenzeiten",
+    storageBucket: "fc-kaunitz-hallenzeiten.firebasestorage.app",
+    messagingSenderId: "34212411138",
+    appId: "1:34212411138:web:dd8f075a2684e98864b41b"
+  };
+
+  // Identisch zur PIN in den Firebase Firestore Rules!
+  const VALID_PIN = "1946";
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const COLLECTION_NAME = "hallenplan_v1";
+
+  const ALL_TEAMS = [
+    "1. Herrenmannschaft", "2. Mannschaft", "Ü32 Mannschaft",
+    "A-Jugend", "B-Jugend", "C-Jugend",
+    "D1-Jugend", "D2-Jugend",
+    "E1-Jugend", "E2-Jugend", "E3-Jugend",
+    "F1-Jugend", "F2-Jugend", "F3-Jugend",
+    "G1-Jugend", "G2-Jugend"
+  ];
+
+  // Sperrtage (Samstags: 14.11., 21.11. und 28.11.2026)
+  const BLOCKED_DATES = ["2026-11-14", "2026-11-21", "2026-11-28"];
+
+  // Wochenplan exakt nach PDF-Vorlage (0 = So, 1 = Mo, 2 = Di, 3 = Mi, 4 = Do, 5 = Fr, 6 = Sa)
+  const WEEKLY_TEMPLATE = [
+    // Sporthalle Grundschule Kaunitz
+    { hall: "kaunitz", weekday: 2, time: "16:00 - 18:30 Uhr", team: "E2-Jugend" },
+    { hall: "kaunitz", weekday: 3, time: "16:00 - 18:30 Uhr", team: "F3-Jugend" },
+    { hall: "kaunitz", weekday: 4, time: "16:00 - 17:00 Uhr", team: "G1-Jugend" },
+    { hall: "kaunitz", weekday: 4, time: "17:00 - 18:00 Uhr", team: "G2-Jugend" },
+    { hall: "kaunitz", weekday: 5, time: "17:00 - 18:00 Uhr", team: "F2-Jugend" },
+    { hall: "kaunitz", weekday: 5, time: "19:30 - 22:00 Uhr", team: "Frei" },
+    { hall: "kaunitz", weekday: 6, time: "14:00 - 16:00 Uhr", team: "E3-Jugend" },
+    { hall: "kaunitz", weekday: 6, time: "16:00 - 17:00 Uhr", team: "G1-Jugend" },
+    { hall: "kaunitz", weekday: 6, time: "17:00 - 18:00 Uhr", team: "F2-Jugend" },
+
+    // Sporthalle Verl-Bornholte
+    { hall: "bornholte", weekday: 2, time: "15:00 - 16:00 Uhr", team: "D2-Jugend" },
+    { hall: "bornholte", weekday: 3, time: "20:00 - 21:30 Uhr", team: "1. Herrenmannschaft" },
+    { hall: "bornholte", weekday: 4, time: "15:00 - 17:00 Uhr", team: "D1-Jugend" },
+    { hall: "bornholte", weekday: 4, time: "18:30 - 20:00 Uhr", team: "C-Jugend" },
+    { hall: "bornholte", weekday: 5, time: "20:00 - 22:00 Uhr", team: "2. Mannschaft" },
+    { hall: "bornholte", weekday: 6, time: "12:00 - 13:30 Uhr", team: "F1-Jugend" },
+    { hall: "bornholte", weekday: 6, time: "13:30 - 15:00 Uhr", team: "E1-Jugend" },
+    { hall: "bornholte", weekday: 6, time: "15:00 - 16:15 Uhr", team: "D1-Jugend" },
+    { hall: "bornholte", weekday: 6, time: "16:15 - 17:30 Uhr", team: "D2-Jugend" },
+    { hall: "bornholte", weekday: 6, time: "17:30 - 19:00 Uhr", team: "A-Jugend" }
+  ];
+
+  const WEEKDAY_NAMES = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+
+  let currentHall = "kaunitz";
+  let allSlots = [];
+  let isUnlocked = localStorage.getItem("fck_pin") === VALID_PIN;
+  let activeModalContext = null;
+
+  // UI-Elemente
+  const pinInput = document.getElementById("pinInput");
+  const pinBtn = document.getElementById("pinBtn");
+  const pinBox = document.getElementById("pinBox");
+  const planContainer = document.getElementById("planContainer");
+  const filterStatus = document.getElementById("filterStatus");
+  const filterTeam = document.getElementById("filterTeam");
+  const filterWeek = document.getElementById("filterWeek");
+
+  // Dropdowns befüllen
+  ALL_TEAMS.forEach(t => {
+    filterTeam.insertAdjacentHTML("beforeend", `<option value="${t}">${t}</option>`);
+    document.getElementById("modalTeamSelect").insertAdjacentHTML("beforeend", `<option value="${t}">${t}</option>`);
+  });
+
+  function updatePinUI() {
+    if (isUnlocked) {
+      pinBox.innerHTML = `
+        <span style="color: var(--green); font-size: 0.85rem; font-weight: 700;">✔ Trainer-Modus aktiv</span>
+        <button class="btn btn-outline" id="lockBtn" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">Sperren</button>
+      `;
+      document.getElementById("lockBtn").addEventListener("click", () => {
+        localStorage.removeItem("fck_pin");
+        isUnlocked = false;
+        location.reload();
+      });
+    }
+  }
+  updatePinUI();
+
+  pinBtn.addEventListener("click", () => {
+    if (pinInput.value.trim() === VALID_PIN) {
+      localStorage.setItem("fck_pin", VALID_PIN);
+      isUnlocked = true;
+      updatePinUI();
+      renderPlan();
+    } else {
+      alert("Falsche PIN. Bitte bei der Jugendkoordination erfragen.");
+    }
+  });
+
+  // Tabs umschalten
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentHall = btn.dataset.hall;
+      renderPlan();
+    });
+  });
+
+  [filterStatus, filterTeam, filterWeek].forEach(el => el.addEventListener("change", renderPlan));
+
+  // Initiale Datenbank-Befüllung für 02.11.2026 bis 27.02.2027 (falls leer)
+  async function seedDatabaseIfEmpty() {
+    const start = new Date("2026-11-02T12:00:00");
+    const end = new Date("2027-02-27T12:00:00");
+    const batch = writeBatch(db);
+    let count = 0;
+
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const isoDate = d.toISOString().split("T")[0];
+      const weekday = d.getDay();
+      const isBlocked = BLOCKED_DATES.includes(isoDate);
+
+      if (isBlocked) {
+        ["kaunitz", "bornholte"].forEach(hall => {
+          const id = `${hall}_${isoDate}_blocked`;
+          batch.set(doc(db, COLLECTION_NAME, id), {
+            hall,
+            date: isoDate,
+            weekday,
+            time: "Ganztägig (Samstag)",
+            defaultTeam: "Halle gesperrt (anderweitig belegt)",
+            currentTeam: "Halle gesperrt (anderweitig belegt)",
+            status: "gesperrt",
+            updatedBy: "Jugendkoordination",
+            pin: VALID_PIN
+          });
+          count++;
+        });
+        continue;
+      }
+
+      const daySlots = WEEKLY_TEMPLATE.filter(s => s.weekday === weekday);
+      daySlots.forEach((slot, idx) => {
+        const id = `${slot.hall}_${isoDate}_${idx}`;
+        const isInitiallyFree = slot.team === "Frei";
+        batch.set(doc(db, COLLECTION_NAME, id), {
+          hall: slot.hall,
+          date: isoDate,
+          weekday,
+          time: slot.time,
+          defaultTeam: slot.team,
+          currentTeam: isInitiallyFree ? "" : slot.team,
+          status: isInitiallyFree ? "frei" : "belegt",
+          updatedBy: isInitiallyFree ? "Regulär frei" : "",
+          pin: VALID_PIN
+        });
+        count++;
+      });
+    }
+
+    if (count > 0) {
+      await batch.commit();
+    }
+  }
+
+  // Echtzeit-Listener auf Firestore
+  onSnapshot(collection(db, COLLECTION_NAME), async (snapshot) => {
+    if (snapshot.empty) {
+      planContainer.innerHTML = `<div class="status-banner">Erstelle Saisonplan 2026/2027 in Firebase...</div>`;
+      await seedDatabaseIfEmpty();
+      return;
+    }
+
+    allSlots = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    allSlots.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    renderPlan();
+  });
+
+  function formatDateDE(iso) {
+    const [y, m, d] = iso.split("-");
+    return `${d}.${m}.${y}`;
+  }
+
+  function renderPlan() {
+    const todayIso = new Date().toISOString().split("T")[0];
+    const statusFilter = filterStatus.value;
+    const teamFilter = filterTeam.value;
+    const weekFilter = filterWeek.value;
+
+    const filtered = allSlots.filter(s => {
+      if (s.hall !== currentHall) return false;
+      if (weekFilter === "upcoming" && s.date < todayIso) return false;
+      if (statusFilter !== "all" && s.status !== statusFilter) return false;
+      if (teamFilter !== "all" && s.defaultTeam !== teamFilter && s.currentTeam !== teamFilter) return false;
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      planContainer.innerHTML = `<div class="status-banner">Keine passenden Hallenzeiten für diesen Filter gefunden.</div>`;
+      return;
+    }
+
+    // Nach Datum gruppieren
+    const grouped = {};
+    filtered.forEach(s => {
+      if (!grouped[s.date]) grouped[s.date] = [];
+      grouped[s.date].push(s);
+    });
+
+    let html = "";
+    Object.keys(grouped).forEach(date => {
+      const slots = grouped[date];
+      const dayName = WEEKDAY_NAMES[slots[0].weekday];
+      html += `
+        <div class="date-group">
+          <div class="date-header">
+            <span>${dayName}, ${formatDateDE(date)}</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">${slots.length} Eintrag/Einträge</span>
+          </div>
+      `;
+
+      slots.forEach(slot => {
+        let badgeHtml = "";
+        let teamDisplay = "";
+        let metaText = "";
+        let actionButtons = "";
+
+        if (slot.status === "gesperrt") {
+          badgeHtml = `<span class="badge badge-gesperrt">Gesperrt</span>`;
+          teamDisplay = slot.defaultTeam;
+          metaText = "Laut Hallenplan steht die Halle an diesem Samstag nicht zur Verfügung.";
+        } else if (slot.status === "frei") {
+          badgeHtml = `<span class="badge badge-frei">Frei zur Übernahme</span>`;
+          teamDisplay = slot.defaultTeam === "Frei" ? "Freie Hallenzeit" : `Abgesagt (${slot.defaultTeam})`;
+          metaText = slot.updatedBy ? `Freigegeben von: ${slot.updatedBy}` : "";
+          if (isUnlocked) {
+            actionButtons += `<button class="btn btn-claim" data-action="claim" data-id="${slot.id}">Zeit übernehmen</button>`;
+            if (slot.defaultTeam !== "Frei") {
+              actionButtons += ` <button class="btn btn-reset" data-action="reset" data-id="${slot.id}">Rückgängig</button>`;
+            }
+          }
+        } else if (slot.status === "uebernommen") {
+          badgeHtml = `<span class="badge badge-uebernommen">Übernommen</span>`;
+          teamDisplay = `${slot.currentTeam} <span style="font-weight:400; color:var(--text-muted); font-size:0.88rem;">(statt ${slot.defaultTeam})</span>`;
+          metaText = slot.updatedBy ? `Übernommen durch: ${slot.updatedBy}` : "";
+          if (isUnlocked) {
+            actionButtons += `<button class="btn btn-free" data-action="free" data-id="${slot.id}">Wieder freigeben</button>`;
+            actionButtons += ` <button class="btn btn-reset" data-action="reset" data-id="${slot.id}">Standard wiederherstellen</button>`;
+          }
+        } else {
+          badgeHtml = `<span class="badge badge-belegt">Belegt</span>`;
+          teamDisplay = slot.defaultTeam;
+          metaText = "Reguläre Trainingszeit";
+          if (isUnlocked) {
+            actionButtons += `<button class="btn btn-free" data-action="free" data-id="${slot.id}">Zeit freigeben</button>`;
+          }
+        }
+
+        html += `
+          <div class="slot-card ${slot.status === "gesperrt" ? "blocked" : ""} ${slot.status === "frei" ? "free" : ""}">
+            <div class="slot-info">
+              <div class="slot-time">${slot.time}</div>
+              <div class="slot-team">${badgeHtml} ${teamDisplay}</div>
+              ${metaText ? `<div class="slot-meta">${metaText}</div>` : ""}
+            </div>
+            <div>${actionButtons}</div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+    });
+
+    planContainer.innerHTML = html;
+
+    // Event-Listener für Aktions-Buttons
+    planContainer.querySelectorAll("button[data-action]").forEach(btn => {
+      btn.addEventListener("click", () => handleActionClick(btn.dataset.action, btn.dataset.id));
+    });
+  }
+
+  // Modal-Steuerung
+  const modal = document.getElementById("actionModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDesc = document.getElementById("modalDesc");
+  const claimTeamWrapper = document.getElementById("claimTeamWrapper");
+  const modalTeamSelect = document.getElementById("modalTeamSelect");
+  const modalTrainerName = document.getElementById("modalTrainerName");
+
+  function handleActionClick(action, slotId) {
+    const slot = allSlots.find(s => s.id === slotId);
+    if (!slot) return;
+
+    activeModalContext = { action, slot };
+    modalTrainerName.value = localStorage.getItem("fck_trainer_name") || "";
+
+    if (action === "free") {
+      modalTitle.textContent = "Trainingszeit freigeben";
+      modalDesc.textContent = `${WEEKDAY_NAMES[slot.weekday]}, ${formatDateDE(slot.date)} (${slot.time}) – Regulär: ${slot.defaultTeam}`;
+      claimTeamWrapper.style.display = "none";
+      modal.classList.add("open");
+    } else if (action === "claim") {
+      modalTitle.textContent = "Freie Hallenzeit übernehmen";
+      modalDesc.textContent = `${WEEKDAY_NAMES[slot.weekday]}, ${formatDateDE(slot.date)} (${slot.time})`;
+      claimTeamWrapper.style.display = "block";
+      modal.classList.add("open");
+    } else if (action === "reset") {
+      resetSlot(slot);
+    }
+  }
+
+  document.getElementById("modalCancel").addEventListener("click", () => {
+    modal.classList.remove("open");
+    activeModalContext = null;
+  });
+
+  document.getElementById("modalConfirm").addEventListener("click", async () => {
+    if (!activeModalContext) return;
+    const { action, slot } = activeModalContext;
+    const trainer = modalTrainerName.value.trim();
+
+    if (!trainer) {
+      alert("Bitte gib deinen Namen oder dein Kürzel ein, damit die anderen Trainer wissen, wer geändert hat.");
+      return;
+    }
+
+    localStorage.setItem("fck_trainer_name", trainer);
+    const ref = doc(db, COLLECTION_NAME, slot.id);
+
+    if (action === "free") {
+      await updateDoc(ref, {
+        status: "frei",
+        currentTeam: "",
+        updatedBy: `${trainer} (${new Date().toLocaleDateString("de-DE")})`,
+        pin: VALID_PIN
+      });
+    } else if (action === "claim") {
+      const chosenTeam = modalTeamSelect.value;
+      await updateDoc(ref, {
+        status: "uebernommen",
+        currentTeam: chosenTeam,
+        updatedBy: `${trainer} (${new Date().toLocaleDateString("de-DE")})`,
+        pin: VALID_PIN
+      });
+    }
+
+    modal.classList.remove("open");
+    activeModalContext = null;
+  });
+
+  async function resetSlot(slot) {
+    const ref = doc(db, COLLECTION_NAME, slot.id);
+    const isInitiallyFree = slot.defaultTeam === "Frei";
+    await updateDoc(ref, {
+      status: isInitiallyFree ? "frei" : "belegt",
+      currentTeam: isInitiallyFree ? "" : slot.defaultTeam,
+      updatedBy: isInitiallyFree ? "Regulär frei" : "",
+      pin: VALID_PIN
+    });
+  }
+</script>
+</body>
+</html>
