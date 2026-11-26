@@ -482,10 +482,11 @@
   const BLOCKED_DATES = ["2026-11-14", "2026-11-21", "2026-11-28"];
 
   // Wochenplan exakt nach PDF-Vorlage (0 = So, 1 = Mo, 2 = Di, 3 = Mi, 4 = Do, 5 = Fr, 6 = Sa)
+    // Wochenplan exakt nach PDF-Vorlage bzw. Tausch (0 = So, 1 = Mo, 2 = Di, 3 = Mi, 4 = Do, 5 = Fr, 6 = Sa)
   const WEEKLY_TEMPLATE = [
     // Sporthalle Grundschule Kaunitz
-    { hall: "kaunitz", weekday: 2, time: "16:00 - 18:30 Uhr", team: "E2-Jugend" },
-    { hall: "kaunitz", weekday: 3, time: "16:00 - 18:30 Uhr", team: "F3-Jugend" },
+    { hall: "kaunitz", weekday: 2, time: "16:00 - 18:30 Uhr", team: "F3-Jugend" },
+    { hall: "kaunitz", weekday: 3, time: "16:00 - 18:30 Uhr", team: "E2-Jugend" },
     { hall: "kaunitz", weekday: 4, time: "16:00 - 17:00 Uhr", team: "G1-Jugend" },
     { hall: "kaunitz", weekday: 4, time: "17:00 - 18:00 Uhr", team: "G2-Jugend" },
     { hall: "kaunitz", weekday: 5, time: "17:00 - 18:00 Uhr", team: "F2-Jugend" },
@@ -506,6 +507,7 @@
     { hall: "bornholte", weekday: 6, time: "16:15 - 17:30 Uhr", team: "D2-Jugend" },
     { hall: "bornholte", weekday: 6, time: "17:30 - 19:00 Uhr", team: "A-Jugend" }
   ];
+
 
   const WEEKDAY_NAMES = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 
